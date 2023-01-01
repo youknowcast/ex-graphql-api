@@ -2,9 +2,11 @@ import Config
 
 # Configure your database
 config :api, Api.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
+  adapter: Ecto.Adapters.MyXQL,
+  username: "root",
+  password: "",
+  hostname: "127.0.0.1",
+  port: 33306,
   database: "api_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
