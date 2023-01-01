@@ -32,3 +32,6 @@ api-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# for project
+.idea
+
