@@ -3,9 +3,10 @@ defmodule Api.Order do
   import Ecto.Changeset
 
   schema "orders" do
-    field :code, :string
-    field :customer_code, :string
-    field :date, :date
+    belongs_to(:customer, Api.Customer)
+    field(:date, :date)
+
+    has_many(:order_details, Api.OrderDetail)
 
     timestamps()
   end
@@ -13,7 +14,7 @@ defmodule Api.Order do
   @doc false
   def changeset(order, attrs) do
     order
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:customer_id, :date])
+    |> validate_required([:customer_id, :date])
   end
 end

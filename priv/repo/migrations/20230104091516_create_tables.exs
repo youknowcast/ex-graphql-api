@@ -24,26 +24,25 @@ defmodule MyApi.Repo.Migrations.CreateTables do
     create(index(:customers, [:code], unique: true))
 
     create table(:orders) do
-      add(:code, :string)
-      add(:customer_code, :string)
       add(:date, :date)
-      add(:inserted_at, :utc_datetime)
-      add(:updated_at, :utc_datetime)
-    end
-
-    create table(:order_details) do
-      add(:goods_code, :string)
-      add(:order_code, :string)
-      add(:quantity, :integer)
-      add(:sequence, :integer)
+      add(:customer_id, references(:customers))
       add(:inserted_at, :utc_datetime)
       add(:updated_at, :utc_datetime)
     end
 
     create table(:goods) do
-      add(:code, :string)
-      add(:name, :string)
-      add(:price, :integer)
+      add(:code, :string, null: false)
+      add(:name, :string, null: false)
+      add(:price, :decimal, default: 0, null: false, precision: 10, scale: 2)
+      add(:inserted_at, :utc_datetime)
+      add(:updated_at, :utc_datetime)
+    end
+
+    create table(:order_details) do
+      add(:good_id, references(:goods))
+      add(:order_id, references(:orders))
+      add(:quantity, :integer)
+      add(:price, :decimal, default: 0, null: false, precision: 10, scale: 2)
       add(:inserted_at, :utc_datetime)
       add(:updated_at, :utc_datetime)
     end

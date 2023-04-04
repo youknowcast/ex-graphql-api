@@ -3,9 +3,11 @@ defmodule Api.Good do
   import Ecto.Changeset
 
   schema "goods" do
-    field :code, :string
-    field :name, :string
-    field :price, :integer
+    field(:code, :string)
+    field(:name, :string)
+    field(:price, :decimal)
+
+    has_many(:order_details, Api.OrderDetail)
 
     timestamps()
   end
@@ -13,7 +15,7 @@ defmodule Api.Good do
   @doc false
   def changeset(good, attrs) do
     good
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:code, :name, :price])
+    |> validate_required([:code, :name, :price])
   end
 end

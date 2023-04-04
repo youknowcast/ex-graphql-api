@@ -3,10 +3,10 @@ defmodule Api.OrderDetail do
   import Ecto.Changeset
 
   schema "order_details" do
-    field :goods_code, :string
-    field :order_code, :string
-    field :quantity, :integer
-    field :sequence, :integer
+    belongs_to(:order, Api.Order)
+    belongs_to(:good, Api.Good)
+    field(:quantity, :integer)
+    field(:price, :decimal)
 
     timestamps()
   end
@@ -14,7 +14,7 @@ defmodule Api.OrderDetail do
   @doc false
   def changeset(order_detail, attrs) do
     order_detail
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:order_id, :good_id, :quantity, :price])
+    |> validate_required([:order_id, :good_id, :quantity, :price])
   end
 end
