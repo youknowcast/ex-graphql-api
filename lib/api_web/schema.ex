@@ -1,15 +1,12 @@
 defmodule Api.Schema do
-  #  use Absinthe.Schema
+  use Absinthe.Schema
 
-  #  import_types Absinthe.Type.Custom
-  #  import_types Api.Schema.CustomerTypes
+  import_types(ApiWeb.Graphql.Types.CustomerType)
+  import_types(ApiWeb.Graphql.Types.StaffType)
 
-  alias Api.Resolvers
-
-  #  query do
-  #    @desc "Get all customers"
-  #    field :customers, list_of(:customer) do
-  #      resolve(&Resolvers.Customer.list_posts/3)
-  #    end
-  #  end
+  query do
+    field :all_customers, list_of(:customer) do
+      resolve(&ApiWeb.Graphql.Resolvers.CustomerResolver.all/2)
+    end
+  end
 end
