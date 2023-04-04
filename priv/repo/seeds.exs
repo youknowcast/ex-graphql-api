@@ -13,20 +13,44 @@
 alias Api.{Repo, Customer, Staff}
 
 Repo.transaction(fn ->
-  # Staffのデータを流し込み
-  staff = %Staff{code: "001", name: "John Doe"}
-  Repo.insert!(staff)
+  staff1 = Repo.insert!(%Staff{code: "s1", name: "Staff 1"})
+  staff2 = Repo.insert!(%Staff{code: "s2", name: "Staff 2"})
 
-  # Customerのデータを流し込み
-  customer = %Customer{
-    address: "東京都渋谷区",
-    code: "C001",
-    name: "株式会社テスト",
-    phone_number: "000-0000-0000",
-    staff_id: staff.id
-  }
+  customers = [
+    %Customer{
+      address: "address 1",
+      code: "c1",
+      name: "Customer 1",
+      phone_number: "111-111-1111",
+      staff_id: staff1.id
+    },
+    %Customer{
+      address: "address 2",
+      code: "c2",
+      name: "Customer 2",
+      phone_number: "222-222-2222",
+      staff_id: staff2.id
+    },
+    %Customer{
+      address: "address 3",
+      code: "c3",
+      name: "Customer 3",
+      phone_number: "333-333-3333",
+      staff_id: staff1.id
+    },
+    %Customer{
+      address: "address 4",
+      code: "c4",
+      name: "Customer 4",
+      phone_number: "444-444-4444",
+      staff_id: nil
+    }
+  ]
 
-  Repo.insert!(customer)
+  customers
+  |> Enum.each(fn x ->
+    Repo.insert!(x)
+  end)
 
   :ok
 end)
