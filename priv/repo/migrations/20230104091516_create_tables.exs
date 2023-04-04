@@ -16,7 +16,7 @@ defmodule MyApi.Repo.Migrations.CreateTables do
       add(:code, :string)
       add(:name, :string)
       add(:phone_number, :string)
-      add(:staff_id, references(:staffs, on_delete: :nothing))
+      add(:staff_id, references(:staffs, on_delete: :nothing), null: true)
       add(:inserted_at, :utc_datetime)
       add(:updated_at, :utc_datetime)
     end
