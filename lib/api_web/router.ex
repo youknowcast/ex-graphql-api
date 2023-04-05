@@ -29,10 +29,10 @@ defmodule ApiWeb.Router do
     pipe_through(:api)
 
     if Mix.env() == :dev do
-      forward("/graphiql", Absinthe.Plug.GraphiQL, schema: Api.Schema)
+      forward("/graphiql", Absinthe.Plug.GraphiQL, schema: ApiWeb.Schema)
     end
 
-    forward("/", Absinthe.Plug, schema: Api.Schema)
+    forward("/", Absinthe.Plug, schema: ApiWeb.Schema)
   end
 
   # Enables LiveDashboard only for development
