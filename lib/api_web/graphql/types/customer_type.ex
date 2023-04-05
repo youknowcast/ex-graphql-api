@@ -12,6 +12,14 @@ defmodule ApiWeb.Graphql.Types.CustomerType do
     field(:staff, :staff)
   end
 
+  input_object :customer_input do
+    field :code, non_null(:string)
+    field :name, non_null(:string)
+    field(:address, :string)
+    field(:phone_number, :string)
+    field(:staff_id, :id)
+  end
+
   def customer_to_type(%Api.Customer{} = customer) do
     %{
       id: customer.id,

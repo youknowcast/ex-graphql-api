@@ -15,5 +15,10 @@ defmodule ApiWeb.Schema do
       resolve(&ApiWeb.Graphql.Resolvers.StaffResolver.create/2)
       arg(:params, non_null(:staff_input))
     end
+
+    field :create_customer, :customer do
+      resolve(&ApiWeb.Graphql.Resolvers.CustomerResolver.create/2)
+      arg(:params, non_null(:customer_input))
+    end
   end
 end

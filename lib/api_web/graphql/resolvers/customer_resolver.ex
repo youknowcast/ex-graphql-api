@@ -14,4 +14,14 @@ defmodule ApiWeb.Graphql.Resolvers.CustomerResolver do
 
     {:ok, values}
   end
+
+  def create(%{params: params}, _) do
+    %Api.Customer{}
+    |> Customer.changeset(params)
+    |> Repo.insert()
+    |> case do
+      {:ok, customer} -> {:ok, CustomerType.customer_to_type(customer)}
+      {:error, changeset} -> {:error, changeset}
+    end
+  end
 end
