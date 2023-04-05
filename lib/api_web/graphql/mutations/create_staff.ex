@@ -1,10 +1,11 @@
 defmodule ApiWeb.Graphql.Mutations.CreateStaff do
   use Absinthe.Schema.Notation
 
-  import_types(ApiWeb.Graphql.Types)
+  alias Api.{Repo, Staff}
+  alias ApiWeb.Graphql.Types.StaffType
 
   @desc "Create a new staff"
-  def create_staff(params) do
+  def create(%{params: params}, _) do
     %Api.Staff{}
     |> Staff.changeset(params)
     |> Repo.insert()
