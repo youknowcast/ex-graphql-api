@@ -20,4 +20,18 @@ defmodule ApiWeb.Graphql.Resolvers.StaffResolver do
       {:error, changeset} -> {:error, changeset}
     end
   end
+
+  def update(%{id: id, staff: staff_params}, _) do
+    staff =
+      Repo.get(Staff, id)
+      |> Ecto.Changeset.change(staff_params)
+
+    case Repo.update(staff) do
+      {:ok, staff} ->
+        {:ok, staff}
+
+      {:error, changeset} ->
+        {:error, changeset}
+    end
+  end
 end

@@ -16,6 +16,12 @@ defmodule ApiWeb.Schema do
       arg(:params, non_null(:staff_input))
     end
 
+    field :update_staff, :staff do
+      resolve(&ApiWeb.Graphql.Resolvers.StaffResolver.update/2)
+      arg(:id, non_null(:id))
+      arg(:staff, non_null(:staff_input))
+    end
+
     field :create_customer, :customer do
       resolve(&ApiWeb.Graphql.Resolvers.CustomerResolver.create/2)
       arg(:params, non_null(:customer_input))
