@@ -6,6 +6,7 @@ defmodule ApiWeb.Graphql.Types.Types do
   本 module が集約した定義は ApiWeb.Schema にロードされ，各 query, mutation で参照されます．
   """
 
+  alias ApiWeb.Graphql.Types.GoodType
   alias ApiWeb.Graphql.Types.StaffInput
   alias ApiWeb.Graphql.Types.StaffType
   alias ApiWeb.Graphql.Types.CustomerType
@@ -15,4 +16,5 @@ defmodule ApiWeb.Graphql.Types.Types do
   import_types(CustomerType)
   import_types(StaffType)
   import_types(StaffInput)
+  import_types(GoodType)
 end
