@@ -3,8 +3,8 @@ defmodule Api.Stock do
   import Ecto.Changeset
 
   schema "stocks" do
-    field :depot_code, :string
-    field :goods_code, :string
+    belongs_to(:good, Api.Good, foreign_key: :good_id)
+    belongs_to(:depot, Api.Depot, foreign_key: :depot_id)
     field :quantity, :integer
 
     timestamps()

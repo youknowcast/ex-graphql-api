@@ -11,7 +11,7 @@
 # and so on) as they will fail if something goes wrong.
 
 alias Api.Repo
-alias Api.{Customer, Good, Order, OrderDetail, Staff}
+alias Api.{Customer, Good, Order, OrderDetail, Staff, Depot, Stock}
 
 Repo.transaction(fn ->
   staff1 = Repo.insert!(%Staff{code: "s1", name: "Staff 1"})
@@ -73,7 +73,12 @@ Repo.transaction(fn ->
 
   # OrderDetail レコードを追加する
   order_details = [
-    %OrderDetail{order_id: order1.id, good_id: Enum.at(goods, 0).id, quantity: 2, price: 200},
+    %OrderDetail{
+      order_id: order1.id,
+      good_id: Enum.at(goods, 0).id,
+      quantity: 2,
+      price: 200
+    },
     %OrderDetail{order_id: order1.id, good_id: Enum.at(goods, 1).id, quantity: 3, price: 150},
     %OrderDetail{order_id: order2.id, good_id: Enum.at(goods, 2).id, quantity: 1, price: 80},
     %OrderDetail{order_id: order3.id, good_id: Enum.at(goods, 4).id, quantity: 5, price: 600},
@@ -82,6 +87,30 @@ Repo.transaction(fn ->
 
   order_details
   |> Enum.each(&Repo.insert!(&1))
+
+  # 在庫状況
+  depot1 = %Depot{code: "D01", name: "Shinjuku"}
+  depot2 = %Depot{code: "D02", name: "Shinagawa"}
+  depot3 = %Depot{code: "D03", name: "Yokohama"}
+  depot4 = %Depot{code: "D04", name: "Nagoya"}
+
+  depots =
+    [depot1, depot2, depot3, depot4]
+    |> Enum.map(&Repo.insert!(&1))
+
+  quantities =
+    goods
+    |> Enum.map(fn good ->
+      depots
+      |> Enum.map(fn depot ->
+        alias Api.Stock
+        %Stock{good_id: good.id, depot_id: depot.id, quantity: 5}
+      end)
+    end)
+
+  quantities
+  |> List.flatten()
+  |> Enum.map(&Repo.insert!/1)
 
   :ok
 end)

@@ -47,19 +47,21 @@ defmodule MyApi.Repo.Migrations.CreateTables do
       add(:updated_at, :utc_datetime)
     end
 
-    create table(:stocks) do
-      add(:depot_code, :string)
-      add(:goods_code, :string)
-      add(:quantity, :integer)
-      add(:inserted_at, :utc_datetime)
-      add(:updated_at, :utc_datetime)
-    end
-
     create table(:depots) do
       add(:code, :string)
       add(:name, :string)
       add(:inserted_at, :utc_datetime)
       add(:updated_at, :utc_datetime)
     end
+
+    create table(:stocks) do
+      add(:depot_id, references(:depots))
+      add(:good_id, references(:goods))
+      add(:quantity, :integer)
+      add(:inserted_at, :utc_datetime)
+      add(:updated_at, :utc_datetime)
+    end
+
+    create(index(:stocks, [:depot_id, :good_id], unique: true))
   end
 end
