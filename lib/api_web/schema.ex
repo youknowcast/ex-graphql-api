@@ -10,6 +10,8 @@ defmodule ApiWeb.Schema do
     field :all_staffs, list_of(:staff), do: resolve(&ApiWeb.Graphql.Resolvers.StaffResolver.all/2)
 
     field :all_goods, list_of(:good), do: resolve(&ApiWeb.Graphql.Resolvers.GoodResolver.all/2)
+
+    field :all_depots, list_of(:depot), do: resolve(&ApiWeb.Graphql.Resolvers.DepotResolver.all/2)
   end
 
   mutation do
