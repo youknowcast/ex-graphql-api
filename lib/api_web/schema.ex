@@ -35,5 +35,11 @@ defmodule ApiWeb.Schema do
       resolve(&ApiWeb.Graphql.Resolvers.DepotResolver.create/2)
       arg(:params, non_null(:depot_input))
     end
+
+    field :update_depot, :staff do
+      resolve(&ApiWeb.Graphql.Resolvers.DepotResolver.update/2)
+      arg(:id, non_null(:id))
+      arg(:params, non_null(:depot_input))
+    end
   end
 end

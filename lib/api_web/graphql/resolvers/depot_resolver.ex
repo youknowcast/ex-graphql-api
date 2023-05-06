@@ -21,4 +21,18 @@ defmodule ApiWeb.Graphql.Resolvers.DepotResolver do
       {:error, changeset} -> {:error, changeset}
     end
   end
+
+  def update(%{id: id, params: params}, _) do
+    depot =
+      Repo.get(Depot, id)
+      |> Ecto.Changeset.change(params)
+
+    case Repo.update(depot) do
+      {:ok, depot} ->
+        {:ok, depot}
+
+      {:error, changeset} ->
+        {:error, changeset}
+    end
+  end
 end
