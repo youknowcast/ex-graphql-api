@@ -6,10 +6,14 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :api, Api.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
+  adapter: Ecto.Adapters.MyXQL,
+  username: "root",
+  password: "",
+  hostname: "127.0.0.1",
+  port: 33306,
   database: "api_test#{System.get_env("MIX_TEST_PARTITION")}",
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true,
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 
