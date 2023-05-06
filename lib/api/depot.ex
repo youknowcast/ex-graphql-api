@@ -12,7 +12,7 @@ defmodule Api.Depot do
   @doc false
   def changeset(depot, attrs) do
     depot
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:code, :name])
+    |> validate_required([:code, :name])
   end
 end

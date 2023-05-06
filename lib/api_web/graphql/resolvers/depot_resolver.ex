@@ -11,4 +11,14 @@ defmodule ApiWeb.Graphql.Resolvers.DepotResolver do
 
     {:ok, values}
   end
+
+  def create(%{params: params}, _) do
+    %Api.Depot{}
+    |> Depot.changeset(params)
+    |> Repo.insert()
+    |> case do
+      {:ok, depot} -> {:ok, DepotType.depot_to_type(depot)}
+      {:error, changeset} -> {:error, changeset}
+    end
+  end
 end

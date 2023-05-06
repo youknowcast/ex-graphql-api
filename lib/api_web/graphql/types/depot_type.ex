@@ -7,6 +7,11 @@ defmodule ApiWeb.Graphql.Types.DepotType do
     field(:name, non_null(:string))
   end
 
+  input_object :depot_input do
+    field :code, non_null(:string)
+    field :name, non_null(:string)
+  end
+
   def depot_to_type(%Api.Depot{} = depot) do
     %{
       id: depot.id,
