@@ -41,5 +41,16 @@ defmodule ApiWeb.Schema do
       arg(:id, non_null(:id))
       arg(:params, non_null(:depot_input))
     end
+
+    field :create_good, :good do
+      resolve(&ApiWeb.Graphql.Resolvers.GoodResolver.create/2)
+      arg(:params, non_null(:good_input))
+    end
+
+    field :update_good, :staff do
+      resolve(&ApiWeb.Graphql.Resolvers.GoodResolver.update/2)
+      arg(:id, non_null(:id))
+      arg(:params, non_null(:good_input))
+    end
   end
 end

@@ -11,4 +11,28 @@ defmodule ApiWeb.Graphql.Resolvers.GoodResolver do
 
     {:ok, values}
   end
+
+  def create(%{params: params}, _) do
+    %Api.Good{}
+    |> Good.changeset(params)
+    |> Repo.insert()
+    |> case do
+      {:ok, good} -> {:ok, GoodType.good_to_type(good)}
+      {:error, changeset} -> {:error, changeset}
+    end
+  end
+
+  def update(%{id: id, params: params}, _) do
+    good =
+      Repo.get(Good, id)
+      |> Ecto.Changeset.change(params)
+
+    case Repo.update(good) do
+      {:ok, good} ->
+        {:ok, good}
+
+      {:error, changeset} ->
+        {:error, changeset}
+    end
+  end
 end
