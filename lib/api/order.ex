@@ -17,5 +17,6 @@ defmodule Api.Order do
     |> cast(attrs, [:customer_id, :date])
     |> validate_required([:customer_id, :date])
     |> cast_assoc(:order_details, required: true, with: &Api.OrderDetail.changeset/2)
+    |> assoc_constraint(:customer)
   end
 end

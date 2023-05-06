@@ -14,7 +14,7 @@ defmodule Api.OrderDetail do
   @doc false
   def changeset(order_detail, attrs) do
     order_detail
-    |> cast(attrs, [:order_id, :good_id, :quantity, :price])
-    |> validate_required([:order_id, :good_id, :quantity, :price])
+    |> cast(attrs, [:quantity, :price])
+    |> validate_required([:quantity, :price])
   end
 end
